@@ -4,40 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SF TOOL AI</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+font-family:'Inter',sans-serif;
 }
 
 body{
-background: radial-gradient(circle at top,#0f2027,#0f0f0f 60%);
+background: linear-gradient(-45deg,#0f0f0f,#111827,#0f2027,#000000);
+background-size:400% 400%;
+animation:bgMove 12s ease infinite;
 color:white;
-overflow-x:hidden;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:20px 60px;
+padding:20px 8%;
 }
 
 .logo{
 font-family:'Orbitron',sans-serif;
-font-size:28px;
+font-size:22px;
 color:#00f0ff;
 letter-spacing:2px;
 }
 
 nav a{
-margin-left:25px;
+margin-left:20px;
 text-decoration:none;
-color:white;
+color:#aaa;
+font-size:14px;
 transition:0.3s;
 }
 
@@ -47,82 +55,78 @@ color:#00f0ff;
 
 .hero{
 text-align:center;
-padding:120px 20px;
+padding:120px 20px 80px;
 }
 
 .hero h1{
-font-size:52px;
+font-size:48px;
 background:linear-gradient(90deg,#00f0ff,#00ff88);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
 .hero p{
-margin-top:20px;
-color:#aaa;
+margin-top:15px;
+color:#bbb;
+font-size:16px;
 }
 
 .btn{
-margin-top:30px;
-padding:14px 35px;
+margin-top:25px;
+padding:12px 30px;
 border:none;
+border-radius:30px;
 background:#00f0ff;
 color:black;
 font-weight:600;
-border-radius:30px;
 cursor:pointer;
 transition:0.3s;
 }
 
 .btn:hover{
-transform:scale(1.1);
 background:#00ff88;
-}
-
-.section-title{
-text-align:center;
-margin-top:80px;
-font-size:30px;
-color:#00f0ff;
+transform:scale(1.08);
 }
 
 .tools{
-padding:50px 60px;
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:25px;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+padding:50px 8% 100px;
 }
 
 .card{
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(0,255,255,0.2);
-border-radius:15px;
+border-radius:18px;
 padding:25px;
+text-align:center;
 transition:0.4s;
-backdrop-filter:blur(12px);
+backdrop-filter:blur(15px);
 }
 
 .card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 25px #00f0ff;
+transform:translateY(-8px);
+box-shadow:0 0 20px #00f0ff;
 }
 
 .card h3{
 color:#00f0ff;
 margin-bottom:10px;
+font-size:16px;
 }
 
 .card p{
-color:#bbb;
-font-size:14px;
+font-size:13px;
+color:#aaa;
 }
 
 footer{
-margin-top:80px;
 text-align:center;
 padding:30px;
-background:#0a0a0a;
-color:#666;
+background:#000;
+color:#555;
+font-size:13px;
 }
 </style>
 </head>
@@ -135,66 +139,49 @@ color:#666;
 <a href="#">Home</a>
 <a href="#">Tools</a>
 <a href="#">Pricing</a>
-<a href="#">Contact</a>
 </nav>
 </header>
 
 <section class="hero">
-<h1>All-in-One AI Creation Platform</h1>
-<p>Create Images, Videos, Logos, Invitations & Fashion Designs with AI</p>
-<button class="btn">Explore Tools</button>
+<h1>AI Creative Platform</h1>
+<p>Create Logo, Undangan Digital, Desain Baju, Gambar & Video dengan AI.</p>
+<button class="btn">Get Started</button>
 </section>
 
-<h2 class="section-title">🎨 Creative AI</h2>
 <section class="tools">
 <div class="card">
-<h3>AI Logo Generator</h3>
-<p>Create professional logos instantly for your brand.</p>
+<h3>🎨 Logo Generator</h3>
+<p>Professional branding in seconds.</p>
 </div>
-<div class="card">
-<h3>AI Poster & Banner</h3>
-<p>Generate marketing designs automatically.</p>
-</div>
-</section>
 
-<h2 class="section-title">📩 Event & Invitation AI</h2>
-<section class="tools">
 <div class="card">
-<h3>Digital Invitation Maker</h3>
-<p>Create wedding, birthday & event invitations in seconds.</p>
+<h3>📩 Undangan Digital</h3>
+<p>Create modern event invitations.</p>
 </div>
-<div class="card">
-<h3>QR Code Invitation</h3>
-<p>Auto generate invitation with RSVP QR code.</p>
-</div>
-</section>
 
-<h2 class="section-title">👕 Fashion & Merchandise AI</h2>
-<section class="tools">
 <div class="card">
-<h3>T-Shirt Design Generator</h3>
-<p>Create trendy t-shirt designs instantly.</p>
+<h3>👕 Desain Baju AI</h3>
+<p>Design apparel & merch instantly.</p>
 </div>
-<div class="card">
-<h3>Jersey & Hoodie Creator</h3>
-<p>Design sportswear and merch with AI assistance.</p>
-</div>
-</section>
 
-<h2 class="section-title">🎬 Video & Image AI</h2>
-<section class="tools">
 <div class="card">
-<h3>AI Video Generator</h3>
-<p>Create cinematic promo videos from text.</p>
+<h3>🖼 Image Generator</h3>
+<p>Ultra realistic AI images.</p>
 </div>
+
 <div class="card">
-<h3>AI Image Generator</h3>
-<p>Generate ultra realistic product images.</p>
+<h3>🎬 Video Creator</h3>
+<p>Generate promo videos easily.</p>
+</div>
+
+<div class="card">
+<h3>💻 HTML Builder</h3>
+<p>Create landing pages with AI.</p>
 </div>
 </section>
 
 <footer>
-© 2026 SF TOOL AI | The Future of Creative Automation
+© 2026 SF TOOL AI — Smart Creation Made Easy
 </footer>
 
 </body>
