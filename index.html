@@ -4,112 +4,125 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SF TOOL AI</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
 }
 
-body {
-    background: linear-gradient(135deg, #0f0f0f, #111827);
-    color: white;
-    overflow-x: hidden;
+body{
+background: radial-gradient(circle at top,#0f2027,#0f0f0f 60%);
+color:white;
+overflow-x:hidden;
 }
 
-header {
-    padding: 20px 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: 700;
-    color: #00f0ff;
+.logo{
+font-family:'Orbitron',sans-serif;
+font-size:28px;
+color:#00f0ff;
+letter-spacing:2px;
 }
 
-nav a {
-    margin-left: 20px;
-    text-decoration: none;
-    color: white;
-    transition: 0.3s;
+nav a{
+margin-left:25px;
+text-decoration:none;
+color:white;
+transition:0.3s;
 }
 
-nav a:hover {
-    color: #00f0ff;
+nav a:hover{
+color:#00f0ff;
 }
 
-.hero {
-    text-align: center;
-    padding: 120px 20px;
+.hero{
+text-align:center;
+padding:120px 20px;
 }
 
-.hero h1 {
-    font-size: 48px;
-    background: linear-gradient(to right, #00f0ff, #00ff99);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.hero h1{
+font-size:52px;
+background:linear-gradient(90deg,#00f0ff,#00ff88);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
-.hero p {
-    margin-top: 20px;
-    color: #ccc;
+.hero p{
+margin-top:20px;
+color:#aaa;
 }
 
-.btn {
-    margin-top: 30px;
-    padding: 12px 30px;
-    border: none;
-    background: #00f0ff;
-    color: black;
-    font-weight: 600;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: 0.3s;
+.btn{
+margin-top:30px;
+padding:14px 35px;
+border:none;
+background:#00f0ff;
+color:black;
+font-weight:600;
+border-radius:30px;
+cursor:pointer;
+transition:0.3s;
 }
 
-.btn:hover {
-    background: #00ff99;
-    transform: scale(1.05);
+.btn:hover{
+transform:scale(1.1);
+background:#00ff88;
 }
 
-.tools {
-    padding: 80px 60px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+.section-title{
+text-align:center;
+margin-top:80px;
+font-size:30px;
+color:#00f0ff;
 }
 
-.card {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 30px;
-    transition: 0.4s;
-    border: 1px solid rgba(0,255,255,0.2);
+.tools{
+padding:50px 60px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
 }
 
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 20px #00f0ff;
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(0,255,255,0.2);
+border-radius:15px;
+padding:25px;
+transition:0.4s;
+backdrop-filter:blur(12px);
 }
 
-.card h3 {
-    margin-bottom: 10px;
-    color: #00f0ff;
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 25px #00f0ff;
 }
 
-footer {
-    text-align: center;
-    padding: 30px;
-    background: #0a0a0a;
-    margin-top: 50px;
-    color: #888;
+.card h3{
+color:#00f0ff;
+margin-bottom:10px;
+}
+
+.card p{
+color:#bbb;
+font-size:14px;
+}
+
+footer{
+margin-top:80px;
+text-align:center;
+padding:30px;
+background:#0a0a0a;
+color:#666;
 }
 </style>
 </head>
@@ -117,45 +130,71 @@ footer {
 <body>
 
 <header>
-    <div class="logo">SF TOOL AI</div>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Tools</a>
-        <a href="#">Pricing</a>
-        <a href="#">Contact</a>
-    </nav>
+<div class="logo">SF TOOL AI</div>
+<nav>
+<a href="#">Home</a>
+<a href="#">Tools</a>
+<a href="#">Pricing</a>
+<a href="#">Contact</a>
+</nav>
 </header>
 
 <section class="hero">
-    <h1>The Future of AI Tools</h1>
-    <p>Create images, videos, scripts, and more with powerful AI technology.</p>
-    <button class="btn">Start Now</button>
+<h1>All-in-One AI Creation Platform</h1>
+<p>Create Images, Videos, Logos, Invitations & Fashion Designs with AI</p>
+<button class="btn">Explore Tools</button>
 </section>
 
+<h2 class="section-title">🎨 Creative AI</h2>
 <section class="tools">
-    <div class="card">
-        <h3>🎨 AI Image Generator</h3>
-        <p>Create realistic images instantly with AI power.</p>
-    </div>
+<div class="card">
+<h3>AI Logo Generator</h3>
+<p>Create professional logos instantly for your brand.</p>
+</div>
+<div class="card">
+<h3>AI Poster & Banner</h3>
+<p>Generate marketing designs automatically.</p>
+</div>
+</section>
 
-    <div class="card">
-        <h3>🎬 AI Video Creator</h3>
-        <p>Generate cinematic videos from text prompts.</p>
-    </div>
+<h2 class="section-title">📩 Event & Invitation AI</h2>
+<section class="tools">
+<div class="card">
+<h3>Digital Invitation Maker</h3>
+<p>Create wedding, birthday & event invitations in seconds.</p>
+</div>
+<div class="card">
+<h3>QR Code Invitation</h3>
+<p>Auto generate invitation with RSVP QR code.</p>
+</div>
+</section>
 
-    <div class="card">
-        <h3>✍️ AI Script Writer</h3>
-        <p>Generate marketing scripts & captions automatically.</p>
-    </div>
+<h2 class="section-title">👕 Fashion & Merchandise AI</h2>
+<section class="tools">
+<div class="card">
+<h3>T-Shirt Design Generator</h3>
+<p>Create trendy t-shirt designs instantly.</p>
+</div>
+<div class="card">
+<h3>Jersey & Hoodie Creator</h3>
+<p>Design sportswear and merch with AI assistance.</p>
+</div>
+</section>
 
-    <div class="card">
-        <h3>🛠 AI HTML Builder</h3>
-        <p>Create landing pages in seconds using AI.</p>
-    </div>
+<h2 class="section-title">🎬 Video & Image AI</h2>
+<section class="tools">
+<div class="card">
+<h3>AI Video Generator</h3>
+<p>Create cinematic promo videos from text.</p>
+</div>
+<div class="card">
+<h3>AI Image Generator</h3>
+<p>Generate ultra realistic product images.</p>
+</div>
 </section>
 
 <footer>
-    © 2026 SF TOOL AI - All Rights Reserved
+© 2026 SF TOOL AI | The Future of Creative Automation
 </footer>
 
 </body>
