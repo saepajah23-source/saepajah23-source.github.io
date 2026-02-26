@@ -1,491 +1,430 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  MessageSquare, 
-  Image as ImageIcon, 
-  Mic, 
-  Send, 
-  Settings, 
-  Sparkles, 
-  Download, 
-  Volume2, 
-  Play, 
-  Menu,
-  X,
-  History,
-  Copy,
-  ChevronRight,
-  LayoutDashboard,
-  Mail,
-  UserCheck,
-  Bot,
-  Crown,
-  LogOut,
-  ArrowRight,
-  Video,
-  Clapperboard,
-  Smartphone,
-  Grid,
-  Plus,
-  Info
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan: adfsad & asdasd</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --maroon: #800000;
+            --wine: #4a0404;
+            --cream: #fdfaf5;
+            --gold: #c5a059;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: var(--wine);
+        }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-cursive { font-family: 'Great Vibes', cursive; }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-const apiKey = ""; // Kunci API disediakan secara otomatis
+        .boho-pattern {
+            background-image: url("https://www.transparenttextures.com/patterns/pinstriped-suit.png");
+        }
 
-// --- UTILS ---
-const fetchWithRetry = async (url, options, maxRetries = 5) => {
-  for (let i = 0; i < maxRetries; i++) {
-    try {
-      const response = await fetch(url, options);
-      if (response.ok) return await response.json();
-      const delay = Math.pow(2, i) * 1000;
-      await new Promise(resolve => setTimeout(resolve, delay));
-    } catch (err) {
-      if (i === maxRetries - 1) throw err;
-    }
-  }
-};
+        .bg-maroon-gradient {
+            background: linear-gradient(135deg, #800000 0%, #4a0404 100%);
+        }
 
-// --- COMPONENTS ---
+        /* Music Disc Animation */
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: rotate 8s linear infinite;
+        }
 
-export default function App() {
-  const [view, setView] = useState('landing'); 
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+        .pampas-decoration {
+            filter: sepia(0.5) opacity(0.3);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
 
-  const renderView = () => {
-    switch(view) {
-      case 'landing': return <LandingPage onStart={() => setView('login')} />;
-      case 'login': return <LoginPage onLogin={() => setView('dashboard')} onBack={() => setView('landing')} />;
-      case 'dashboard': return <CreativeEngine setView={setView} />;
-      case 'ugc-creator': return <UgcCreator onBack={() => setView('dashboard')} />;
-      case 'text-gen': return <ToolLayout title="Text AI Generator" onBack={() => setView('dashboard')}><TextGenerator /></ToolLayout>;
-      case 'image-gen': return <ToolLayout title="Image AI Generator" onBack={() => setView('dashboard')}><ImageGenerator /></ToolLayout>;
-      case 'speech-gen': return <ToolLayout title="Text to Speech" onBack={() => setView('dashboard')}><SpeechGenerator /></ToolLayout>;
-      default: return <LandingPage />;
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-[#0a0b1e] text-slate-200 selection:bg-indigo-500/30 font-sans overflow-x-hidden relative">
-      <div className="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/10 blur-[120px] rounded-full z-0" />
-      <div className="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 blur-[120px] rounded-full z-0" />
-      
-      <div className="relative z-10 h-full">
-        {renderView()}
-      </div>
+    <!-- Audio Control (Overlay) -->
+    <div id="audio-control" class="fixed bottom-6 right-6 z-50">
+        <button onclick="toggleMusic()" class="bg-white/80 p-3 rounded-full shadow-lg backdrop-blur-md border border-maroon/20 hover:scale-110 transition-transform">
+            <i id="music-icon" data-lucide="music" class="w-6 h-6 text-maroon animate-spin-slow"></i>
+        </button>
+        <audio id="wedding-music" loop>
+            <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
+        </audio>
     </div>
-  );
-}
 
-// 1. Landing Page
-function LandingPage({ onStart }) {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-6 text-center">
-      <div className="mb-4 flex items-center gap-2">
-        <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase italic">GENIUS PRO</h1>
-      </div>
-      <p className="text-indigo-400 font-bold tracking-[0.3em] text-xs md:text-sm mb-12">AI GENERATOR PLATFORM</p>
-      
-      <div className="max-w-4xl space-y-4 mb-16">
-        <h2 className="text-5xl md:text-7xl font-medium text-slate-400 leading-tight">Infinite Imagination.</h2>
-        <h2 className="text-5xl md:text-7xl font-bold text-white leading-tight">Zero Boundaries.</h2>
-        <p className="text-slate-400 text-sm md:text-lg max-w-xl mx-auto pt-4 leading-relaxed">
-          Orchestrate consistent characters and cinematic scenes with the world's most advanced generative engine.
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden text-center px-4">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80" alt="Background Pernikahan" class="w-full h-full object-cover filter brightness-50">
+        </div>
+        
+        <!-- Boho Frames -->
+        <div class="absolute inset-0 pointer-events-none border-[20px] border-white/10 m-4 md:m-8 lg:m-12"></div>
+        
+        <div class="relative z-10 text-white space-y-6">
+            <p class="uppercase tracking-[0.3em] text-sm md:text-base font-light mb-4">The Wedding Of</p>
+            <h1 class="text-6xl md:text-8xl font-serif italic mb-2">adfsad <span class="block md:inline">&</span> asdasd</h1>
+            <div class="w-24 h-px bg-white/50 mx-auto my-6"></div>
+            <p class="text-xl md:text-2xl font-light tracking-widest">05 . 02 . 2026</p>
+            <a href="#couple" class="inline-block mt-12 px-8 py-3 bg-white/10 hover:bg-white/20 border border-white/50 backdrop-blur-sm transition-all rounded-full uppercase text-xs tracking-[0.2em]">Buka Undangan</a>
+        </div>
+    </section>
+
+    <!-- Opening Section -->
+    <section class="py-20 px-6 max-w-4xl mx-auto text-center reveal">
+        <div class="mb-8 flex justify-center">
+            <i data-lucide="heart" class="text-maroon fill-maroon w-8 h-8"></i>
+        </div>
+        <p class="font-serif italic text-lg md:text-xl leading-relaxed text-gray-700">
+            "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
         </p>
-      </div>
+        <p class="mt-4 font-semibold text-maroon tracking-wider">— Ar-Rum: 21</p>
+    </section>
 
-      <button onClick={onStart} className="group relative flex items-center gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 px-10 py-4 rounded-full font-bold text-white transition-all hover:scale-105 shadow-[0_0_40px_rgba(79,70,229,0.3)] hover:shadow-indigo-500/50">
-        Start Creating <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-      </button>
-    </div>
-  );
-}
-
-// 2. Login Page
-function LoginPage({ onLogin, onBack }) {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-6">
-      <button onClick={onBack} className="absolute top-8 left-8 text-slate-400 hover:text-white flex items-center gap-2 text-sm transition-colors">
-        <ArrowRight className="rotate-180" size={16} /> Back to Home
-      </button>
-      <div className="w-full max-w-md space-y-8">
-        <div className="text-center space-y-2">
-          <h2 className="text-4xl font-bold text-white">Sign in</h2>
-          <p className="text-slate-400">Use your GENIUS PRO account</p>
-        </div>
-        <div className="bg-[#16172d]/80 border border-white/10 backdrop-blur-xl p-8 rounded-[2rem] shadow-2xl space-y-6">
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-400 ml-1 uppercase tracking-wider">Email</label>
-            <input type="email" placeholder="Enter your email" className="w-full bg-[#0a0b1e]/50 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all" />
-          </div>
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-400 ml-1 uppercase tracking-wider">Password</label>
-            <input type="password" placeholder="••••••••" className="w-full bg-[#0a0b1e]/50 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all" />
-          </div>
-          <div className="bg-[#0f1025] border border-white/5 p-4 rounded-lg flex items-center justify-between">
-            <div className="flex items-center gap-3">
-               <div className="w-6 h-6 border-2 border-slate-600 rounded bg-slate-900/50" />
-               <span className="text-sm text-slate-300">Saya bukan robot</span>
+    <!-- Couple Section -->
+    <section id="couple" class="py-20 bg-white relative overflow-hidden">
+        <img src="https://www.svgrepo.com/show/486255/pampas-grass.svg" class="absolute -left-10 top-0 w-64 pampas-decoration" alt="Boho Decor">
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-serif text-maroon mb-4">Mempelai</h2>
+                <p class="text-gray-500 uppercase tracking-widest text-sm">Bertemu dalam kasih, bersatu dalam janji</p>
             </div>
-            <div className="text-[8px] text-right text-slate-500 leading-tight">reCAPTCHA<br/>Privasi - Persyaratan</div>
-          </div>
-          <div className="flex items-center justify-between pt-2">
-            <button className="text-sm font-medium text-indigo-400 hover:text-indigo-300">Create account</button>
-            <button onClick={onLogin} className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-3 rounded-2xl font-bold text-white flex items-center gap-2 hover:scale-105 transition-all shadow-lg shadow-indigo-500/20">
-              Next <ArrowRight size={18} />
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
-// 3. Creative Engine (Dashboard)
-function CreativeEngine({ setView }) {
-  const categories = [
-    {
-      title: "IMAGE GENERATION",
-      tools: [
-        { id: 'ugc-creator', name: "UGC Creator", desc: "Viral Content Generator", icon: <Smartphone className="text-emerald-500" />, color: "emerald" },
-        { id: 'image-gen', name: "Film Maker", desc: "Professional AI Editor", icon: <Clapperboard className="text-pink-500" />, color: "pink" }
-      ]
-    },
-    {
-      title: "VIDEO GENERATION",
-      tools: [
-        { id: 'image-gen', name: "GENIUS VIDEO GEN", desc: "Ultimate AI Video Gen", icon: <Play className="text-indigo-500" />, color: "indigo" },
-        { id: 'image-gen', name: "Grok I2V", desc: "Image to Video Gen", icon: <Grid className="text-slate-400" />, color: "slate" },
-        { id: 'image-gen', name: "Grok Video", desc: "Text to Video Gen", icon: <Grid className="text-slate-400" />, color: "slate" }
-      ]
-    },
-    {
-      title: "TEXT TO SPEECH GENERATION",
-      tools: [
-        { id: 'speech-gen', name: "Voice Cloning", desc: "High Fidelity Audio", icon: <Mic className="text-orange-500" />, color: "orange" },
-        { id: 'text-gen', name: "Script Writer", desc: "AI Creative Writing", icon: <MessageSquare className="text-blue-500" />, color: "blue" }
-      ]
-    }
-  ];
-
-  return (
-    <div className="flex min-h-screen">
-      <aside className="w-72 border-r border-white/5 bg-[#0a0b1e]/80 backdrop-blur-xl flex flex-col p-6 fixed h-full z-30">
-        <div className="flex items-center gap-2 mb-10">
-          <h2 className="text-xl font-bold tracking-tighter text-white italic">GENIUS<span className="text-indigo-500 italic">PRO</span></h2>
-        </div>
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-5 mb-8 relative group">
-          <div className="absolute top-0 right-0 p-2 opacity-20"><Crown size={14} className="text-indigo-400" /></div>
-          <div className="space-y-1">
-            <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">Free Plan</p>
-            <h3 className="text-sm font-bold text-white">saep.ajah23</h3>
-          </div>
-          <div className="mt-4 pt-4 border-t border-white/5 flex justify-between items-center text-xs">
-            <span className="text-slate-400">Credit Balance</span>
-            <span className="text-white font-bold">0</span>
-          </div>
-          <p className="text-[10px] text-slate-500 mt-2 italic">Visitor Mode</p>
-        </div>
-        <nav className="flex-1 space-y-1">
-          <SidebarItem icon={<LayoutDashboard size={18} />} label="Dashboard" active />
-          <SidebarItem icon={<Mail size={18} />} label="Inbox" locked />
-          <SidebarItem icon={<UserCheck size={18} />} label="Verification Account" />
-          <SidebarItem icon={<Bot size={18} />} label="Connect Jetpack Bot" locked />
-          <SidebarItem icon={<Crown size={18} />} label="Membership" />
-        </nav>
-        <button onClick={() => window.location.reload()} className="mt-auto bg-red-500/10 hover:bg-red-500/20 text-red-400 p-4 rounded-xl flex items-center justify-center gap-2 font-bold border border-red-500/20 transition-all">
-          <LogOut size={18} /> Logout System
-        </button>
-      </aside>
-
-      <main className="flex-1 ml-72 p-10">
-        <div className="max-w-6xl mx-auto space-y-12">
-          <div className="bg-indigo-600/10 border border-indigo-500/30 p-3 rounded-xl flex items-center gap-3 px-6">
-            <div className="bg-indigo-500 p-1.5 rounded-lg"><Sparkles size={16} className="text-white" /></div>
-            <p className="text-xs font-medium text-indigo-200 truncate italic">
-              Let's go to [ Checkout ] - Wow! Auto Content Creator Video Release - Available Now On Jetpack Bot
-            </p>
-          </div>
-          <div className="space-y-1">
-            <h1 className="text-7xl font-black text-white leading-[0.9]">Creative Engine.</h1>
-            <p className="text-indigo-400 font-medium text-lg pt-2">Select an AI tool to start creating.</p>
-          </div>
-          <div className="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center gap-4 text-xs font-medium text-slate-500 italic">
-            <History size={16} /> Waiting for new creations... Start generating now!
-          </div>
-          <div className="space-y-14">
-            {categories.map((cat, idx) => (
-              <div key={idx} className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <h3 className="text-[10px] font-black tracking-[0.3em] text-slate-500 uppercase">{cat.title}</h3>
-                  <div className="flex-1 h-px bg-white/5" />
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {cat.tools.map((tool, tIdx) => (
-                    <div key={tIdx} onClick={() => setView(tool.id)} className="bg-white/5 border border-white/10 p-6 rounded-3xl flex items-center justify-between hover:bg-white/10 hover:border-indigo-500/30 transition-all cursor-pointer group shadow-xl">
-                      <div className="flex items-center gap-5">
-                        <div className={`p-4 rounded-2xl bg-[#1a1b2e] border border-white/5 group-hover:scale-110 transition-transform`}>{tool.icon}</div>
-                        <div>
-                          <h4 className="font-bold text-white text-xl leading-none mb-1">{tool.name}</h4>
-                          <p className="text-xs text-slate-500">{tool.desc}</p>
+            <div class="grid md:grid-cols-2 gap-16 items-center max-w-5xl mx-auto">
+                <!-- Groom -->
+                <div class="text-center space-y-4 reveal">
+                    <div class="relative inline-block">
+                        <div class="w-64 h-80 mx-auto overflow-hidden rounded-t-full border-8 border-cream shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80" alt="adfsad" class="w-full h-full object-cover">
                         </div>
-                      </div>
-                      <ChevronRight size={20} className="text-slate-600 group-hover:text-indigo-400 group-hover:translate-x-1 transition-all" />
+                        <div class="absolute -bottom-4 -right-4 bg-maroon text-white p-4 rounded-full">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </div>
                     </div>
-                  ))}
+                    <h3 class="text-3xl font-serif text-maroon pt-4">adfsad</h3>
+                    <p class="text-gray-600 font-medium">Putra dari</p>
+                    <p class="text-gray-500 italic">Bapak asdasd & Ibu asdasd</p>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-}
 
-// 4. UGC Creator Component (New Feature Based on Image 4)
-function UgcCreator({ onBack }) {
-  const [prompt, setPrompt] = useState('');
-  const [isConsistencyLocked, setConsistencyLocked] = useState(true);
-  const [isAutoDownload, setAutoDownload] = useState(false);
-
-  return (
-    <div className="min-h-screen flex flex-col items-center p-8 bg-[#0a0b1e]">
-      <div className="w-full max-w-5xl flex flex-col items-center">
-        {/* Header Navigation */}
-        <button onClick={onBack} className="text-slate-400 hover:text-white transition-colors text-sm mb-12 self-center flex items-center gap-2">
-          <ArrowRight className="rotate-180" size={16} /> Back to Dashboard
-        </button>
-
-        {/* Title */}
-        <div className="flex items-center gap-4 mb-16">
-          <span className="text-4xl">📱</span>
-          <h1 className="text-5xl font-black text-white uppercase tracking-tighter">
-            <span className="text-yellow-400">UGC</span> CREATOR
-          </h1>
-        </div>
-
-        {/* Main Interface Container */}
-        <div className="w-full space-y-8">
-          {/* Prompt Section */}
-          <div className="bg-[#1a1b2e]/60 border border-white/10 rounded-[2rem] p-1 shadow-2xl">
-            <div className="bg-[#0f1025]/80 p-8 rounded-[1.8rem]">
-              <textarea 
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Describe your UGC concept... (e.g. A happy woman holding a coffee cup)"
-                className="w-full h-32 bg-transparent text-xl text-slate-300 placeholder:text-slate-700 focus:outline-none resize-none leading-relaxed"
-              />
+                <!-- Bride -->
+                <div class="text-center space-y-4 reveal" style="transition-delay: 200ms;">
+                    <div class="relative inline-block">
+                        <div class="w-64 h-80 mx-auto overflow-hidden rounded-t-full border-8 border-cream shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80" alt="asdasd" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute -bottom-4 -left-4 bg-maroon text-white p-4 rounded-full">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-3xl font-serif text-maroon pt-4">asdasd</h3>
+                    <p class="text-gray-600 font-medium">Putri dari</p>
+                    <p class="text-gray-500 italic">Bapak asdasd & Ibu asdasd</p>
+                </div>
             </div>
-          </div>
-
-          {/* Upload Slots Section */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <UploadSlot label="MAIN / MODEL" slot="Slot 1" />
-            <UploadSlot label="PRODUCT / ELEM" slot="Slot 2" />
-            <UploadSlot label="PRODUCT / ELEM" slot="Slot 3" />
-            <UploadSlot label="PRODUCT / ELEM" slot="Slot 4" />
-            <UploadSlot label="PRODUCT / ELEM" slot="Slot 5" />
-          </div>
-          
-          <p className="text-center text-xs text-slate-500 font-medium">
-            Upload up to 5 images (Model + Products) for consistent I2I
-          </p>
-
-          {/* Controls Section */}
-          <div className="space-y-4 max-w-3xl mx-auto w-full pt-8">
-            <ToggleSwitch 
-              label="Consistency Lock (Seed)" 
-              enabled={isConsistencyLocked} 
-              onToggle={() => setConsistencyLocked(!isConsistencyLocked)} 
-            />
-            <ToggleSwitch 
-              label="Auto Download" 
-              enabled={isAutoDownload} 
-              onToggle={() => setAutoDownload(!isAutoDownload)} 
-            />
-          </div>
-
-          {/* Action Button */}
-          <div className="flex justify-center pt-8">
-            <button className="bg-gradient-to-r from-blue-600 to-indigo-600 px-12 py-5 rounded-3xl font-black text-white text-lg hover:scale-105 transition-all shadow-[0_0_50px_rgba(79,70,229,0.3)]">
-              GENERATE CONTENT
-            </button>
-          </div>
         </div>
-      </div>
-    </div>
-  );
-}
+    </section>
 
-// Sub-components for UGC Creator
-function UploadSlot({ label, slot }) {
-  return (
-    <div className="flex flex-col items-center gap-3 group cursor-pointer">
-      <div className="w-full aspect-square bg-[#0f1025] border-2 border-dashed border-indigo-500/30 rounded-3xl flex flex-col items-center justify-center transition-all group-hover:border-indigo-500 group-hover:bg-[#1a1b2e]">
-        <Plus className="text-slate-500 group-hover:text-white transition-colors" size={24} />
-        <span className="text-[10px] font-bold text-slate-600 mt-2 uppercase tracking-widest">{slot}</span>
-      </div>
-      <div className="bg-black/40 border border-white/10 px-3 py-1 rounded-full">
-        <span className="text-[9px] font-black text-white uppercase tracking-tighter whitespace-nowrap">{label}</span>
-      </div>
-    </div>
-  );
-}
-
-function ToggleSwitch({ label, enabled, onToggle }) {
-  return (
-    <div className="bg-[#1a1b2e]/60 border border-white/10 rounded-2xl p-6 flex items-center justify-between shadow-lg">
-      <span className="text-lg font-bold text-white tracking-tight">{label}</span>
-      <button 
-        onClick={onToggle}
-        className={`w-14 h-8 rounded-full transition-all relative ${enabled ? 'bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'bg-slate-700'}`}
-      >
-        <div className={`absolute top-1 w-6 h-6 bg-white rounded-full transition-all shadow-md ${enabled ? 'right-1' : 'left-1'}`} />
-      </button>
-    </div>
-  );
-}
-
-// Other Utilities
-function SidebarItem({ icon, label, active, locked }) {
-  return (
-    <div className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition-all ${
-      active ? 'bg-indigo-600/10 text-indigo-400 font-bold border border-indigo-500/20' : 'text-slate-500 hover:bg-white/5'
-    }`}>
-      {icon}
-      <span className="text-sm tracking-tight">{label}</span>
-      {locked && <X size={12} className="ml-auto text-slate-800" />}
-    </div>
-  );
-}
-
-function ToolLayout({ title, onBack, children }) {
-  return (
-    <div className="p-10 max-w-6xl mx-auto min-h-screen flex flex-col">
-       <div className="flex items-center justify-between mb-16">
-          <button onClick={onBack} className="flex items-center gap-2 text-slate-500 hover:text-white transition-colors text-sm">
-            <ArrowRight className="rotate-180" size={18} /> Dashboard
-          </button>
-          <div className="px-5 py-2 bg-indigo-600/10 border border-indigo-500/30 rounded-full">
-            <span className="text-[10px] font-black text-indigo-400 uppercase tracking-widest italic">Active Tool Engine</span>
-          </div>
-       </div>
-       <h1 className="text-6xl font-black text-white mb-12 tracking-tighter leading-none italic">{title}</h1>
-       <div className="flex-1">
-          {children}
-       </div>
-    </div>
-  );
-}
-
-// Original Logic Components (dengan gaya desain baru)
-function TextGenerator() {
-  const [prompt, setPrompt] = useState('');
-  const [result, setResult] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const generate = async () => {
-    setLoading(true);
-    try {
-      const data = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-      });
-      setResult(data.candidates?.[0]?.content?.parts?.[0]?.text || '');
-    } finally { setLoading(false); }
-  };
-
-  return (
-    <div className="space-y-8">
-      <div className="bg-[#1a1b2e]/60 border border-white/10 p-8 rounded-[2.5rem] space-y-6 shadow-2xl backdrop-blur-md">
-        <textarea value={prompt} onChange={e => setPrompt(e.target.value)} placeholder="Enter creative instructions..." className="w-full h-56 bg-transparent border-none text-2xl text-white placeholder:text-slate-700 focus:outline-none resize-none font-medium" />
-        <div className="flex justify-end pt-4 border-t border-white/5">
-          <button onClick={generate} disabled={loading} className="bg-gradient-to-r from-blue-600 to-indigo-600 p-5 px-10 rounded-[1.5rem] font-black text-white flex items-center gap-3 hover:scale-105 transition-all shadow-lg">
-            {loading ? 'Thinking...' : 'Generate Text'} <Send size={20} />
-          </button>
+    <!-- Love Story -->
+    <section class="py-24 bg-maroon-gradient text-white relative">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-4xl font-serif italic mb-2">Cerita Cinta Kami</h2>
+                <div class="w-16 h-px bg-white/30 mx-auto"></div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 reveal">
+                <p class="leading-relaxed text-lg italic text-center text-white/90">
+                    "asdasdas"
+                </p>
+            </div>
         </div>
-      </div>
-      {result && <div className="bg-white/5 border border-white/10 p-10 rounded-[2.5rem] animate-in zoom-in-95 text-slate-300 text-lg leading-relaxed whitespace-pre-wrap">{result}</div>}
+    </section>
+
+    <!-- Event Details -->
+    <section id="event" class="py-24 bg-cream">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-serif text-maroon mb-4">Acara Spesial</h2>
+                <div id="countdown" class="flex justify-center gap-4 mt-8">
+                    <div class="bg-white p-4 rounded-lg shadow-md w-20">
+                        <span id="days" class="block text-2xl font-bold text-maroon">00</span>
+                        <span class="text-xs uppercase">Hari</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md w-20">
+                        <span id="hours" class="block text-2xl font-bold text-maroon">00</span>
+                        <span class="text-xs uppercase">Jam</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md w-20">
+                        <span id="minutes" class="block text-2xl font-bold text-maroon">00</span>
+                        <span class="text-xs uppercase">Menit</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md w-20">
+                        <span id="seconds" class="block text-2xl font-bold text-maroon">00</span>
+                        <span class="text-xs uppercase">Detik</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                <!-- Akad -->
+                <div class="bg-white p-10 rounded-3xl shadow-xl border-t-8 border-maroon reveal">
+                    <div class="flex justify-between items-start mb-6">
+                        <h3 class="text-3xl font-serif text-maroon">Akad Nikah</h3>
+                        <div class="bg-maroon/10 p-3 rounded-full">
+                            <i data-lucide="rings" class="w-6 h-6 text-maroon"></i>
+                        </div>
+                    </div>
+                    <div class="space-y-4 text-gray-700">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="calendar" class="w-5 h-5 text-maroon"></i>
+                            <span>Kamis, 05 Februari 2026</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="clock" class="w-5 h-5 text-maroon"></i>
+                            <span>06:56 WIB - Selesai</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-maroon mt-1"></i>
+                            <span>asdasd</span>
+                        </div>
+                    </div>
+                    <button class="mt-8 w-full py-3 border border-maroon text-maroon hover:bg-maroon hover:text-white transition-colors rounded-xl font-semibold uppercase text-sm tracking-widest">Lihat Lokasi</button>
+                </div>
+
+                <!-- Resepsi -->
+                <div class="bg-white p-10 rounded-3xl shadow-xl border-t-8 border-maroon reveal" style="transition-delay: 200ms;">
+                    <div class="flex justify-between items-start mb-6">
+                        <h3 class="text-3xl font-serif text-maroon">Resepsi</h3>
+                        <div class="bg-maroon/10 p-3 rounded-full">
+                            <i data-lucide="glass-water" class="w-6 h-6 text-maroon"></i>
+                        </div>
+                    </div>
+                    <div class="space-y-4 text-gray-700">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="calendar" class="w-5 h-5 text-maroon"></i>
+                            <span>Kamis, 05 Februari 2026</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="clock" class="w-5 h-5 text-maroon"></i>
+                            <span>05:56 WIB - Selesai</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-maroon mt-1"></i>
+                            <span>asdasd</span>
+                        </div>
+                    </div>
+                    <button class="mt-8 w-full py-3 bg-maroon text-white hover:bg-wine transition-colors rounded-xl font-semibold uppercase text-sm tracking-widest shadow-lg">Lihat Lokasi</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guestbook -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-4xl font-serif text-maroon mb-4">Ucapan & Doa</h2>
+                <p class="text-gray-600">dasdasd</p>
+            </div>
+
+            <div class="bg-cream p-8 rounded-3xl shadow-inner mb-12 reveal">
+                <form id="wish-form" class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap</label>
+                        <input type="text" id="guest-name" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-maroon outline-none transition-all" placeholder="Contoh: Budi Santoso">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Kehadiran</label>
+                        <select id="guest-attendance" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-maroon outline-none transition-all">
+                            <option value="hadir">Hadir</option>
+                            <option value="tidak_hadir">Tidak Hadir</option>
+                            <option value="ragu">Masih Ragu</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Pesan Untuk Mempelai</label>
+                        <textarea id="guest-message" rows="4" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-maroon outline-none transition-all" placeholder="Tuliskan doa restu Anda..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-4 bg-maroon text-white rounded-xl font-bold uppercase tracking-widest hover:bg-wine shadow-xl transition-all">Kirim Ucapan</button>
+                </form>
+            </div>
+
+            <!-- Wishes List (Static Mockup) -->
+            <div id="wishes-display" class="space-y-4 max-h-[500px] overflow-y-auto pr-2 reveal">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+                    <p class="font-bold text-maroon">Keluarga Besar Budi</p>
+                    <p class="text-gray-600 mt-2 italic text-sm">"Selamat menempuh hidup baru untuk adfsad dan asdasd! Semoga sakinah mawaddah warahmah selamanya."</p>
+                    <span class="text-[10px] text-gray-400 mt-2 block">Baru saja</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gift Section -->
+    <section class="py-24 bg-cream text-center relative overflow-hidden">
+        <img src="https://www.svgrepo.com/show/486255/pampas-grass.svg" class="absolute -right-10 bottom-0 w-64 pampas-decoration scale-x-[-1]" alt="Boho Decor">
+        
+        <div class="container mx-auto px-6 max-w-2xl relative z-10 reveal">
+            <h2 class="text-4xl font-serif text-maroon mb-6">Kado Digital</h2>
+            <p class="text-gray-600 mb-12">Doa restu Anda adalah karunia terindah bagi kami. Namun jika Anda ingin memberi lebih, kami menyediakan fitur di bawah ini:</p>
+            
+            <div class="bg-white p-8 rounded-3xl shadow-xl space-y-8">
+                <div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" class="h-8 mx-auto mb-4" alt="BCA">
+                    <p class="text-xl font-bold text-gray-800">1234567890</p>
+                    <p class="text-gray-500 uppercase text-xs tracking-widest">A/N adfsad</p>
+                    <button onclick="copyToClipboard('1234567890')" class="mt-4 text-maroon text-xs font-bold underline">Salin No. Rekening</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-wine text-white text-center">
+        <h2 class="font-cursive text-4xl mb-4">Terima Kasih</h2>
+        <p class="font-serif italic text-white/70 mb-8">adfsad & asdasd</p>
+        <div class="text-xs text-white/30 tracking-widest uppercase">
+            Digital Invitation by PremiumDesign
+        </div>
+    </footer>
+
+    <!-- Notification Container -->
+    <div id="toast" class="fixed top-6 left-1/2 -translate-x-1/2 z-[100] bg-maroon text-white px-6 py-3 rounded-full shadow-2xl transition-all opacity-0 pointer-events-none">
+        Teks berhasil disalin!
     </div>
-  );
-}
 
-function ImageGenerator() {
-  const [prompt, setPrompt] = useState('');
-  const [img, setImg] = useState(null);
-  const [loading, setLoading] = useState(false);
+    <script>
+        // Use window.onload to ensure Lucide library is fully loaded before usage
+        window.onload = function () {
+            // Start Lucide
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
 
-  const generate = async () => {
-    setLoading(true); setImg(null);
-    try {
-      const data = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ instances: [{ prompt }], parameters: { sampleCount: 1 } })
-      });
-      setImg(`data:image/png;base64,${data.predictions[0].bytesBase64Encoded}`);
-    } finally { setLoading(false); }
-  };
+            // Reveal Animation on Scroll
+            function reveal() {
+                var reveals = document.querySelectorAll(".reveal");
+                for (var i = 0; i < reveals.length; i++) {
+                    var windowHeight = window.innerHeight;
+                    var elementTop = reveals[i].getBoundingClientRect().top;
+                    var elementVisible = 100;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add("active");
+                    }
+                }
+            }
+            window.addEventListener("scroll", reveal);
+            reveal(); // Initial trigger
+        };
 
-  return (
-    <div className="space-y-12 flex flex-col items-center">
-      <div className="bg-white/5 p-3 border border-white/10 rounded-full flex items-center shadow-2xl w-full max-w-4xl backdrop-blur-xl">
-        <input value={prompt} onChange={e => setPrompt(e.target.value)} placeholder="A cinematic futuristic city..." className="flex-1 bg-transparent px-8 text-xl text-white focus:outline-none font-medium" />
-        <button onClick={generate} disabled={loading} className="bg-indigo-600 p-5 px-10 rounded-full font-black text-white hover:bg-indigo-500 transition-all shadow-[0_0_20px_rgba(79,70,229,0.4)]">
-          {loading ? 'Creating Art...' : 'Create'}
-        </button>
-      </div>
-      {img && <img src={img} className="max-w-2xl w-full rounded-[3rem] shadow-[0_0_60px_rgba(0,0,0,0.5)] border border-white/10" />}
-    </div>
-  );
-}
+        // Countdown Timer
+        const weddingDate = new Date("2026-02-05T06:56:00").getTime();
+        const countdownFunc = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
 
-function SpeechGenerator() {
-  const [text, setText] = useState('');
-  const [audio, setAudio] = useState(null);
-  const [loading, setLoading] = useState(false);
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-  const generate = async () => {
-    setLoading(true);
-    try {
-      const data = await fetchWithRetry(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: `Say naturally: ${text}` }] }],
-          generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Aoede" } } } }
-        })
-      });
-      const b64 = data.candidates[0].content.parts.find(p => p.inlineData).inlineData.data;
-      
-      const binaryString = atob(b64);
-      const bytes = new Uint8Array(binaryString.length);
-      for (let i = 0; i < binaryString.length; i++) bytes[i] = binaryString.charCodeAt(i);
-      const buffer = bytes.buffer;
-      const length = buffer.byteLength;
-      const wavHeader = new ArrayBuffer(44);
-      const view = new DataView(wavHeader);
-      const writeString = (offset, string) => { for (let i = 0; i < string.length; i++) view.setUint8(offset + i, string.charCodeAt(i)); };
-      writeString(0, 'RIFF'); view.setUint32(4, 36 + length, true); writeString(8, 'WAVE'); writeString(12, 'fmt ');
-      view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 1, true); view.setUint32(24, 24000, true);
-      view.setUint32(28, 48000, true); view.setUint16(32, 2, true); view.setUint16(34, 16, true); writeString(36, 'data');
-      view.setUint32(40, length, true);
-      const combined = new Uint8Array(44 + length); combined.set(new Uint8Array(wavHeader), 0); combined.set(new Uint8Array(buffer), 44);
-      setAudio(URL.createObjectURL(new Blob([combined], { type: 'audio/wav' })));
-    } finally { setLoading(false); }
-  };
+            const dEl = document.getElementById("days");
+            const hEl = document.getElementById("hours");
+            const mEl = document.getElementById("minutes");
+            const sEl = document.getElementById("seconds");
 
-  return (
-    <div className="max-w-3xl mx-auto bg-[#1a1b2e]/60 border border-white/10 p-12 rounded-[3rem] shadow-2xl space-y-8 backdrop-blur-md">
-      <div className="space-y-2">
-        <label className="text-xs font-black text-indigo-400 uppercase tracking-[0.2em] ml-1">Vocal Manuscript</label>
-        <textarea value={text} onChange={e => setText(e.target.value)} placeholder="Type your narrative here..." className="w-full bg-[#0a0b1e]/50 border border-white/5 rounded-3xl p-8 text-xl text-white focus:outline-none resize-none h-48" />
-      </div>
-      <button onClick={generate} disabled={loading} className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 p-6 rounded-[1.5rem] font-black text-xl flex items-center justify-center gap-4 transition-all hover:scale-[1.02]">
-        {loading ? 'Synthesizing...' : <><Volume2 size={24}/> Generate Audio</>}
-      </button>
-      {audio && <div className="mt-8 p-4 bg-indigo-600/10 rounded-full border border-indigo-500/20"><audio controls src={audio} className="w-full accent-indigo-500" /></div>}
-    </div>
-  );
-}
+            if(dEl) dEl.innerHTML = days < 10 ? "0" + days : days;
+            if(hEl) hEl.innerHTML = hours < 10 ? "0" + hours : hours;
+            if(mEl) mEl.innerHTML = minutes < 10 ? "0" + minutes : minutes;
+            if(sEl) sEl.innerHTML = seconds < 10 ? "0" + seconds : seconds;
+
+            if (distance < 0) {
+                clearInterval(countdownFunc);
+                const countContainer = document.getElementById("countdown");
+                if(countContainer) countContainer.innerHTML = "HARI BAHAGIA TELAH TIBA";
+            }
+        }, 1000);
+
+        // Audio Control
+        let isPlaying = false;
+        const audio = document.getElementById('wedding-music');
+        const icon = document.getElementById('music-icon');
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                if(icon) {
+                    icon.classList.remove('animate-spin-slow');
+                    icon.style.animation = 'none';
+                }
+            } else {
+                audio.play().catch(e => console.log("Auto-play blocked"));
+                if(icon) {
+                    icon.classList.add('animate-spin-slow');
+                    icon.style.animation = '';
+                }
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Clipboard function
+        function copyToClipboard(text) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            
+            showToast("Nomor rekening berhasil disalin!");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            if(toast) {
+                toast.innerText = msg;
+                toast.style.opacity = '1';
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                }, 3000);
+            }
+        }
+
+        // Guestbook logic (Local)
+        const wishForm = document.getElementById('wish-form');
+        if(wishForm) {
+            wishForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('guest-name').value;
+                const msg = document.getElementById('guest-message').value;
+                const display = document.getElementById('wishes-display');
+
+                const newWish = document.createElement('div');
+                newWish.className = 'bg-white p-5 rounded-2xl shadow-sm border border-gray-100 reveal active';
+                newWish.innerHTML = `
+                    <p class="font-bold text-maroon">${name}</p>
+                    <p class="text-gray-600 mt-2 italic text-sm">"${msg}"</p>
+                    <span class="text-[10px] text-gray-400 mt-2 block">Baru saja</span>
+                `;
+                if(display) display.prepend(newWish);
+                this.reset();
+                showToast("Terima kasih atas doanya!");
+            });
+        }
+    </script>
+</body>
+</html>
