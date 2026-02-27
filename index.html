@@ -20,7 +20,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Glow Background */
+/* Glow */
 .glow {
     position: absolute;
     border-radius: 50%;
@@ -110,7 +110,17 @@ body {
 
 .pricing h2 {
     font-size: 40px;
+    margin-bottom: 30px;
+}
+
+.promo-banner {
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    padding: 15px 25px;
+    border-radius: 50px;
+    display: inline-block;
     margin-bottom: 50px;
+    font-weight: 600;
+    box-shadow: 0 0 20px rgba(139,92,246,0.6);
 }
 
 .pricing-container {
@@ -121,6 +131,7 @@ body {
 }
 
 .card {
+    position: relative;
     background: rgba(255,255,255,0.05);
     backdrop-filter: blur(20px);
     padding: 40px;
@@ -135,10 +146,28 @@ body {
     border: 1px solid #8b5cf6;
 }
 
+.badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #ef4444;
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    box-shadow: 0 0 15px rgba(239,68,68,0.6);
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #9ca3af;
+    font-size: 18px;
+}
+
 .price {
     font-size: 32px;
     font-weight: 700;
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .card ul {
@@ -161,13 +190,7 @@ body {
     cursor: pointer;
 }
 
-.footer {
-    text-align: center;
-    padding: 30px;
-    color: #6b7280;
-}
-
-/* LOGIN MODAL */
+/* Login Modal */
 .login-modal {
     position: fixed;
     inset: 0;
@@ -204,29 +227,14 @@ body {
     to { transform: scale(1); opacity: 1; }
 }
 
-.login-box h2 {
-    font-size: 28px;
-}
-
-.login-sub {
-    font-size: 14px;
-    color: #9ca3af;
-    margin-bottom: 30px;
-}
-
 .login-box input {
     width: 100%;
-    padding: 12px 15px;
+    padding: 12px;
     margin-bottom: 15px;
     border-radius: 10px;
     border: none;
-    outline: none;
     background: rgba(255,255,255,0.08);
     color: white;
-}
-
-.login-box input::placeholder {
-    color: #9ca3af;
 }
 
 .login-btn {
@@ -238,23 +246,6 @@ body {
     color: white;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 10px;
-    transition: 0.3s;
-}
-
-.login-btn:hover {
-    transform: scale(1.05);
-}
-
-.login-footer {
-    margin-top: 20px;
-    font-size: 13px;
-    color: #9ca3af;
-}
-
-.login-footer span {
-    color: #8b5cf6;
-    cursor: pointer;
 }
 
 .close-btn {
@@ -264,6 +255,12 @@ body {
     font-size: 24px;
     cursor: pointer;
     color: #9ca3af;
+}
+
+.footer {
+    text-align: center;
+    padding: 30px;
+    color: #6b7280;
 }
 </style>
 </head>
@@ -276,27 +273,32 @@ body {
 <section class="hero">
     <div class="logo">SF TOOL AI</div>
     <div class="subtitle">AI GENERATOR PLATFORM</div>
-
     <div class="headline">
         Infinite Creativity.
         <span>No Limits.</span>
     </div>
-
     <div class="description">
         Create stunning visuals, powerful tools, and intelligent systems
         with next-generation AI technology designed for innovators.
     </div>
-
     <button class="btn" onclick="openLogin()">Start Creating →</button>
 </section>
 
 <section class="pricing">
     <h2>Membership Pricing</h2>
 
+    <div class="promo-banner">
+        🔥 Launch Promo – Diskon Hingga 40%!
+        <span id="countdown"></span>
+    </div>
+
     <div class="pricing-container">
+
         <div class="card">
+            <div class="badge">PROMO</div>
             <h3>Basic</h3>
-            <div class="price">Rp50.000 / bulan</div>
+            <div class="old-price">Rp50.000</div>
+            <div class="price">Rp35.000 / bulan</div>
             <ul>
                 <li>✔ 100 AI Generations</li>
                 <li>✔ Standard Speed</li>
@@ -306,8 +308,10 @@ body {
         </div>
 
         <div class="card">
+            <div class="badge">PROMO</div>
             <h3>Pro</h3>
-            <div class="price">Rp150.000 / bulan</div>
+            <div class="old-price">Rp150.000</div>
+            <div class="price">Rp99.000 / bulan</div>
             <ul>
                 <li>✔ 500 AI Generations</li>
                 <li>✔ Faster Processing</li>
@@ -317,8 +321,10 @@ body {
         </div>
 
         <div class="card">
+            <div class="badge">PROMO</div>
             <h3>Elite</h3>
-            <div class="price">Rp300.000 / bulan</div>
+            <div class="old-price">Rp300.000</div>
+            <div class="price">Rp199.000 / bulan</div>
             <ul>
                 <li>✔ Unlimited AI Access</li>
                 <li>✔ Ultra Fast Engine</li>
@@ -326,11 +332,12 @@ body {
             </ul>
             <button>Choose Plan</button>
         </div>
+
     </div>
 </section>
 
 <div class="footer">
-    © 2026 SF TOOL AI. All rights reserved.
+© 2026 SF TOOL AI. All rights reserved.
 </div>
 
 <!-- LOGIN MODAL -->
@@ -338,13 +345,9 @@ body {
     <div class="login-box">
         <span class="close-btn" onclick="closeLogin()">×</span>
         <h2>Welcome Back</h2>
-        <p class="login-sub">Login to continue creating</p>
         <input type="email" placeholder="Email Address">
         <input type="password" placeholder="Password">
         <button class="login-btn">Login</button>
-        <div class="login-footer">
-            Don't have an account? <span>Sign Up</span>
-        </div>
     </div>
 </div>
 
@@ -352,10 +355,32 @@ body {
 function openLogin() {
     document.getElementById("loginModal").classList.add("active");
 }
-
 function closeLogin() {
     document.getElementById("loginModal").classList.remove("active");
 }
+
+// Countdown 3 hari
+const promoEnd = new Date();
+promoEnd.setDate(promoEnd.getDate() + 3);
+
+const countdownEl = document.getElementById("countdown");
+
+setInterval(() => {
+    const now = new Date();
+    const distance = promoEnd - now;
+
+    if (distance < 0) {
+        countdownEl.innerHTML = " Promo Ended";
+        return;
+    }
+
+    const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const h = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((distance / (1000 * 60)) % 60);
+    const s = Math.floor((distance / 1000) % 60);
+
+    countdownEl.innerHTML = ` ⏳ ${d}d ${h}h ${m}m ${s}s`;
+}, 1000);
 </script>
 
 </body>
