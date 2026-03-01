@@ -5,266 +5,40 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SF TOOL AI</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-body {
-    background: linear-gradient(135deg, #050816, #0a0f2c, #150d3f);
-    color: white;
-    overflow-x: hidden;
-}
-
-/* Glow Background */
-.glow {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(120px);
-    opacity: 0.3;
-    animation: float 6s infinite ease-in-out alternate;
-}
-
-.glow1 { width: 300px; height: 300px; background: #3b82f6; top: 10%; left: 5%; }
-.glow2 { width: 400px; height: 400px; background: #9333ea; bottom: 10%; right: 5%; }
-
-@keyframes float {
-    from { transform: translateY(-20px); }
-    to { transform: translateY(20px); }
-}
-
-/* Hero */
-.hero {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
-    position: relative;
-    z-index: 2;
-}
-
-.logo {
-    font-size: 60px;
-    font-weight: 800;
-    background: linear-gradient(90deg, #ffffff, #8b5cf6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.subtitle {
-    font-size: 14px;
-    letter-spacing: 4px;
-    color: #9ca3af;
-    margin-top: 10px;
-}
-
-.headline {
-    margin-top: 40px;
-    font-size: 42px;
-    font-weight: 300;
-}
-
-.headline span {
-    display: block;
-    font-weight: 700;
-}
-
-.description {
-    margin-top: 20px;
-    max-width: 600px;
-    font-size: 16px;
-    color: #d1d5db;
-    line-height: 1.6;
-}
-
-.btn {
-    margin-top: 40px;
-    padding: 14px 40px;
-    border-radius: 50px;
-    border: none;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    color: white;
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-    transition: 0.4s ease;
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
-}
-
-.btn:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 40px rgba(139, 92, 246, 1);
-}
-
-/* Pricing */
-.pricing {
-    padding: 100px 20px;
-    text-align: center;
-}
-
-.pricing h2 {
-    font-size: 40px;
-    margin-bottom: 50px;
-}
-
-.pricing-container {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.card {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(20px);
-    padding: 40px;
-    border-radius: 20px;
-    width: 300px;
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: 0.4s;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    border: 1px solid #8b5cf6;
-}
-
-.price {
-    font-size: 32px;
-    font-weight: 700;
-    margin: 20px 0;
-}
-
-.card ul {
-    list-style: none;
-    margin: 20px 0;
-}
-
-.card ul li {
-    margin: 10px 0;
-    color: #d1d5db;
-}
-
-.card button {
-    margin-top: 20px;
-    padding: 12px 30px;
-    border-radius: 30px;
-    border: none;
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-    color: white;
-    cursor: pointer;
-}
-
-.footer {
-    text-align: center;
-    padding: 30px;
-    color: #6b7280;
-}
-
-/* LOGIN MODAL */
-.login-modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(8px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.4s ease;
-    z-index: 999;
-}
-
-.login-modal.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.login-box {
-    position: relative;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(20px);
-    padding: 50px;
-    border-radius: 20px;
-    width: 350px;
-    text-align: center;
-    animation: popUp 0.4s ease;
-}
-
-@keyframes popUp {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-.login-box h2 {
-    font-size: 28px;
-}
-
-.login-sub {
-    font-size: 14px;
-    color: #9ca3af;
-    margin-bottom: 30px;
-}
-
-.login-box input {
-    width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    background: rgba(255,255,255,0.08);
-    color: white;
-}
-
-.login-box input::placeholder {
-    color: #9ca3af;
-}
-
-.login-btn {
-    width: 100%;
-    padding: 12px;
-    border-radius: 30px;
-    border: none;
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: 0.3s;
-}
-
-.login-btn:hover {
-    transform: scale(1.05);
-}
-
-.login-footer {
-    margin-top: 20px;
-    font-size: 13px;
-    color: #9ca3af;
-}
-
-.login-footer span {
-    color: #8b5cf6;
-    cursor: pointer;
-}
-
-.close-btn {
-    position: absolute;
-    right: 20px;
-    top: 15px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #9ca3af;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:linear-gradient(135deg,#050816,#0a0f2c,#150d3f);color:white;overflow-x:hidden;}
+.glow{position:absolute;border-radius:50%;filter:blur(120px);opacity:.3;animation:float 6s infinite ease-in-out alternate;}
+.glow1{width:300px;height:300px;background:#3b82f6;top:10%;left:5%;}
+.glow2{width:400px;height:400px;background:#9333ea;bottom:10%;right:5%;}
+@keyframes float{from{transform:translateY(-20px);}to{transform:translateY(20px);}}
+.hero{height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;flex-direction:column;position:relative;z-index:2;}
+.logo{font-size:60px;font-weight:800;background:linear-gradient(90deg,#fff,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.subtitle{font-size:14px;letter-spacing:4px;color:#9ca3af;margin-top:10px;}
+.headline{margin-top:40px;font-size:42px;font-weight:300;}
+.headline span{display:block;font-weight:700;}
+.description{margin-top:20px;max-width:600px;font-size:16px;color:#d1d5db;line-height:1.6;}
+.btn{margin-top:40px;padding:14px 40px;border-radius:50px;border:none;font-size:16px;font-weight:600;cursor:pointer;color:white;background:linear-gradient(90deg,#3b82f6,#8b5cf6);transition:.4s ease;box-shadow:0 0 20px rgba(139,92,246,.6);}
+.btn:hover{transform:scale(1.08);box-shadow:0 0 40px rgba(139,92,246,1);}
+.pricing{padding:100px 20px;text-align:center;}
+.pricing h2{font-size:40px;margin-bottom:50px;}
+.pricing-container{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;}
+.card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);padding:40px;border-radius:20px;width:300px;border:1px solid rgba(255,255,255,.1);transition:.4s;}
+.card:hover{transform:translateY(-10px);border:1px solid #8b5cf6;}
+.price{font-size:32px;font-weight:700;margin:20px 0;}
+.card ul{list-style:none;margin:20px 0;}
+.card ul li{margin:10px 0;color:#d1d5db;}
+.card button{margin-top:20px;padding:12px 30px;border-radius:30px;border:none;background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:white;cursor:pointer;}
+.login-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);display:flex;justify-content:center;align-items:center;opacity:0;pointer-events:none;transition:.4s ease;z-index:999;}
+.login-modal.active{opacity:1;pointer-events:auto;}
+.login-box{position:relative;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(20px);padding:50px;border-radius:20px;width:350px;text-align:center;animation:popUp .4s ease;}
+@keyframes popUp{from{transform:scale(.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+.login-box input{width:100%;padding:12px 15px;margin-bottom:15px;border-radius:10px;border:none;outline:none;background:rgba(255,255,255,.08);color:white;}
+.login-btn{width:100%;padding:12px;border-radius:30px;border:none;background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:white;font-weight:600;cursor:pointer;margin-top:10px;}
+.close-btn{position:absolute;right:20px;top:15px;font-size:24px;cursor:pointer;color:#9ca3af;}
+.footer{text-align:center;padding:30px;color:#6b7280;}
 </style>
 </head>
 
@@ -274,87 +48,104 @@ body {
 <div class="glow glow2"></div>
 
 <section class="hero">
-    <div class="logo">SF TOOL AI</div>
-    <div class="subtitle">AI GENERATOR PLATFORM</div>
-
-    <div class="headline">
-        Infinite Creativity.
-        <span>No Limits.</span>
-    </div>
-
-    <div class="description">
-        Create stunning visuals, powerful tools, and intelligent systems
-        with next-generation AI technology designed for innovators.
-    </div>
-
-    <button class="btn" onclick="openLogin()">Start Creating →</button>
+<div class="logo">SF TOOL AI</div>
+<div class="subtitle">AI GENERATOR PLATFORM</div>
+<div class="headline">Infinite Creativity.<span>No Limits.</span></div>
+<div class="description">Create stunning visuals, powerful tools, and intelligent systems with next-generation AI technology designed for innovators.</div>
+<button class="btn" onclick="openLogin()">Start Creating →</button>
 </section>
 
 <section class="pricing">
-    <h2>Membership Pricing</h2>
-
-    <div class="pricing-container">
-        <div class="card">
-            <h3>Basic</h3>
-            <div class="price">Rp50.000 / bulan</div>
-            <ul>
-                <li>✔ 100 AI Generations</li>
-                <li>✔ Standard Speed</li>
-                <li>✔ Email Support</li>
-            </ul>
-            <button>Choose Plan</button>
-        </div>
-
-        <div class="card">
-            <h3>Pro</h3>
-            <div class="price">Rp150.000 / bulan</div>
-            <ul>
-                <li>✔ 500 AI Generations</li>
-                <li>✔ Faster Processing</li>
-                <li>✔ Priority Support</li>
-            </ul>
-            <button>Choose Plan</button>
-        </div>
-
-        <div class="card">
-            <h3>Elite</h3>
-            <div class="price">Rp300.000 / bulan</div>
-            <ul>
-                <li>✔ Unlimited AI Access</li>
-                <li>✔ Ultra Fast Engine</li>
-                <li>✔ 24/7 VIP Support</li>
-            </ul>
-            <button>Choose Plan</button>
-        </div>
-    </div>
+<h2>Membership Pricing</h2>
+<div class="pricing-container">
+<div class="card"><h3>Basic</h3><div class="price">Rp50.000 / bulan</div><ul><li>✔ 100 AI Generations</li><li>✔ Standard Speed</li><li>✔ Email Support</li></ul><button onclick="selectPlan('Basic - Rp50.000')">Choose Plan</button></div>
+<div class="card"><h3>Pro</h3><div class="price">Rp150.000 / bulan</div><ul><li>✔ 500 AI Generations</li><li>✔ Faster Processing</li><li>✔ Priority Support</li></ul><button onclick="selectPlan('Pro - Rp150.000')">Choose Plan</button></div>
+<div class="card"><h3>Elite</h3><div class="price">Rp300.000 / bulan</div><ul><li>✔ Unlimited AI Access</li><li>✔ Ultra Fast Engine</li><li>✔ 24/7 VIP Support</li></ul><button onclick="selectPlan('Elite - Rp300.000')">Choose Plan</button></div>
+</div>
 </section>
 
-<div class="footer">
-    © 2026 SF TOOL AI. All rights reserved.
-</div>
+<div class="footer">© 2026 SF TOOL AI. All rights reserved.</div>
 
 <!-- LOGIN MODAL -->
 <div class="login-modal" id="loginModal">
-    <div class="login-box">
-        <span class="close-btn" onclick="closeLogin()">×</span>
-        <h2>Welcome Back</h2>
-        <p class="login-sub">Login to continue creating</p>
-        <input type="email" placeholder="Email Address">
-        <input type="password" placeholder="Password">
-        <button class="login-btn">Login</button>
-        <div class="login-footer">
-            Don't have an account? <span>Sign Up</span>
-        </div>
-    </div>
+<div class="login-box">
+<span class="close-btn" onclick="closeLogin()">×</span>
+<h2>Welcome Back</h2>
+<input type="email" placeholder="Email Address">
+<input type="password" placeholder="Password">
+<button class="login-btn">Login</button>
+</div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="login-modal" id="paymentModal">
+<div class="login-box">
+<span class="close-btn" onclick="closePayment()">×</span>
+<h2>Metode Pembayaran</h2>
+
+<p style="text-align:left;margin-top:15px;">
+<strong>BCA:</strong><br>
+8410575770<br>
+A/n M.SYAEFUDIN<br><br>
+
+<strong>DANA:</strong><br>
+085888053302<br>
+A/n M.SYAEFUDIN
+</p>
+
+<div style="margin-top:10px;text-align:left;">
+Status: <span id="statusText" style="color:orange;font-weight:600;">Pending</span>
+</div>
+
+<input type="file" id="buktiTransfer" accept="image/*">
+
+<button class="login-btn" onclick="confirmPayment()">Konfirmasi Pembayaran</button>
+</div>
 </div>
 
 <script>
-function openLogin() {
-    document.getElementById("loginModal").classList.add("active");
+let selectedPlan="";
+
+function openLogin(){document.getElementById("loginModal").classList.add("active");}
+function closeLogin(){document.getElementById("loginModal").classList.remove("active");}
+function closePayment(){document.getElementById("paymentModal").classList.remove("active");}
+
+function selectPlan(plan){
+selectedPlan=plan;
+document.getElementById("paymentModal").classList.add("active");
 }
 
-function closeLogin() {
-    document.getElementById("loginModal").classList.remove("active");
+function confirmPayment(){
+const file=document.getElementById("buktiTransfer");
+if(file.files.length===0){alert("Upload bukti transfer dulu.");return;}
+
+document.getElementById("statusText").innerHTML="Paid";
+document.getElementById("statusText").style.color="lime";
+
+generateInvoice();
+sendWhatsApp();
+
+setTimeout(()=>{window.location.href="#";},3000);
+}
+
+function generateInvoice(){
+const {jsPDF}=window.jspdf;
+const doc=new jsPDF();
+const inv="INV-"+Math.floor(Math.random()*100000);
+doc.setFontSize(18);
+doc.text("INVOICE PEMBAYARAN",20,20);
+doc.setFontSize(12);
+doc.text("Invoice: "+inv,20,40);
+doc.text("Plan: "+selectedPlan,20,50);
+doc.text("Status: PAID",20,60);
+doc.text("Metode: BCA / DANA",20,70);
+doc.save(inv+".pdf");
+}
+
+function sendWhatsApp(){
+const phone="6285888053302";
+const text=`Halo Admin,%0ASaya sudah bayar.%0APlan: ${selectedPlan}%0AStatus: PAID`;
+window.open(`https://wa.me/${phone}?text=${text}`,'_blank');
 }
 </script>
 
