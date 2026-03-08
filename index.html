@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SF TOOL AI</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -16,15 +17,18 @@ body{background:linear-gradient(135deg,#050816,#0a0f2c,#150d3f);color:white;over
 .glow2{width:400px;height:400px;background:#9333ea;bottom:10%;right:5%;}
 @keyframes float{from{transform:translateY(-20px);}to{transform:translateY(20px);}}
 
+/* HERO */
 .hero{height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;flex-direction:column;position:relative;z-index:2;}
 .logo{font-size:60px;font-weight:800;background:linear-gradient(90deg,#fff,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .subtitle{font-size:14px;letter-spacing:4px;color:#9ca3af;margin-top:10px;}
 .headline{margin-top:40px;font-size:42px;font-weight:300;}
 .headline span{display:block;font-weight:700;}
 .description{margin-top:20px;max-width:600px;font-size:16px;color:#d1d5db;line-height:1.6;}
+
 .btn{margin-top:40px;padding:14px 40px;border-radius:50px;border:none;font-size:16px;font-weight:600;cursor:pointer;color:white;background:linear-gradient(90deg,#3b82f6,#8b5cf6);transition:.4s ease;box-shadow:0 0 20px rgba(139,92,246,.6);}
 .btn:hover{transform:scale(1.08);box-shadow:0 0 40px rgba(139,92,246,1);}
 
+/* PRICING */
 .pricing{padding:100px 20px;text-align:center;}
 .pricing h2{font-size:40px;margin-bottom:50px;}
 .pricing-container{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;}
@@ -41,16 +45,28 @@ transition:.4s;
 }
 
 .card:hover{transform:translateY(-10px);border:1px solid #8b5cf6;}
+
 .price{font-size:32px;font-weight:700;margin:20px 0;}
+
 .card ul{list-style:none;margin:20px 0;}
 .card ul li{margin:10px 0;color:#d1d5db;}
-.card button{margin-top:20px;padding:12px 30px;border-radius:30px;border:none;background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:white;cursor:pointer;}
 
-/* BEST SELLER EFFECT */
+.card button{
+margin-top:20px;
+padding:12px 30px;
+border-radius:30px;
+border:none;
+background:linear-gradient(90deg,#3b82f6,#8b5cf6);
+color:white;
+cursor:pointer;
+}
+
+/* BEST SELLER */
 .best-card{
 animation:pulseGlow 2s infinite;
 border:1px solid #facc15;
 }
+
 @keyframes pulseGlow{
 0%{box-shadow:0 0 10px rgba(250,204,21,.4);}
 50%{box-shadow:0 0 40px rgba(250,204,21,1);}
@@ -69,6 +85,7 @@ font-weight:700;
 border-radius:20px;
 animation:badgeGlow 1.5s infinite alternate;
 }
+
 @keyframes badgeGlow{
 from{box-shadow:0 0 5px #facc15;}
 to{box-shadow:0 0 25px #facc15;}
@@ -81,13 +98,115 @@ color:#facc15;
 font-weight:600;
 }
 
-.login-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);display:flex;justify-content:center;align-items:center;opacity:0;pointer-events:none;transition:.4s ease;z-index:999;}
+/* LOGIN MODAL */
+.login-modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.7);
+backdrop-filter:blur(8px);
+display:flex;
+justify-content:center;
+align-items:center;
+opacity:0;
+pointer-events:none;
+transition:.4s ease;
+z-index:999;
+}
+
 .login-modal.active{opacity:1;pointer-events:auto;}
-.login-box{position:relative;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(20px);padding:50px;border-radius:20px;width:350px;text-align:center;}
-.login-box input{width:100%;padding:12px;margin-bottom:15px;border-radius:10px;border:none;background:rgba(255,255,255,.08);color:white;}
-.login-btn{width:100%;padding:12px;border-radius:30px;border:none;background:linear-gradient(90deg,#3b82f6,#8b5cf6);color:white;font-weight:600;cursor:pointer;}
-.close-btn{position:absolute;right:20px;top:15px;font-size:24px;cursor:pointer;color:#9ca3af;}
+
+.login-box{
+position:relative;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+backdrop-filter:blur(20px);
+padding:50px;
+border-radius:20px;
+width:350px;
+text-align:center;
+}
+
+.login-box input{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border-radius:10px;
+border:none;
+background:rgba(255,255,255,.08);
+color:white;
+}
+
+.login-btn{
+width:100%;
+padding:12px;
+border-radius:30px;
+border:none;
+background:linear-gradient(90deg,#3b82f6,#8b5cf6);
+color:white;
+font-weight:600;
+cursor:pointer;
+}
+
+.close-btn{
+position:absolute;
+right:20px;
+top:15px;
+font-size:24px;
+cursor:pointer;
+color:#9ca3af;
+}
+
 .footer{text-align:center;padding:30px;color:#6b7280;}
+
+/* MAINTENANCE MODE */
+.maintenance-overlay{
+position:fixed;
+inset:0;
+background:linear-gradient(135deg,#050816,#0a0f2c,#150d3f);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+z-index:9999;
+}
+
+.maintenance-title{
+font-size:50px;
+font-weight:800;
+background:linear-gradient(90deg,#fff,#8b5cf6);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+margin-bottom:20px;
+}
+
+.maintenance-text{
+color:#d1d5db;
+max-width:500px;
+line-height:1.6;
+margin-bottom:30px;
+}
+
+.maintenance-loader{
+width:60px;
+height:60px;
+border:5px solid rgba(255,255,255,.1);
+border-top:5px solid #8b5cf6;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin-bottom:20px;
+}
+
+@keyframes spin{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+
+.reconnect-text{
+color:#9ca3af;
+font-size:14px;
+margin-top:10px;
+}
 </style>
 </head>
 
@@ -100,49 +219,51 @@ font-weight:600;
 <div class="logo">SF TOOL AI</div>
 <div class="subtitle">AI GENERATOR PLATFORM</div>
 <div class="headline">Infinite Creativity.<span>No Limits.</span></div>
-<div class="description">Create stunning visuals, powerful tools, and intelligent systems with next-generation AI technology designed for innovators.</div>
+<div class="description">
+Create stunning visuals, powerful tools, and intelligent systems with next-generation AI technology designed for innovators.
+</div>
 <button class="btn" onclick="openLogin()">Start Creating →</button>
 </section>
 
 <section class="pricing">
-  <h2>Membership Pricing</h2>
-  <div class="pricing-container">
+<h2>Membership Pricing</h2>
+<div class="pricing-container">
 
-    <div class="card">
-      <h3>Basic</h3>
-      <div class="price">Rp50.000 / bulan</div>
-      <ul>
-        <li>✔ 100 AI Generations</li>
-        <li>✔ Standard Speed</li>
-        <li>✔ Email Support</li>
-      </ul>
-      <button onclick="selectPlan('Basic - Rp50.000')">Choose Plan</button>
-    </div>
+<div class="card">
+<h3>Basic</h3>
+<div class="price">Rp50.000 / bulan</div>
+<ul>
+<li>✔ 100 AI Generations</li>
+<li>✔ Standard Speed</li>
+<li>✔ Email Support</li>
+</ul>
+<button onclick="selectPlan('Basic - Rp50.000')">Choose Plan</button>
+</div>
 
-    <div class="card pro">
-      <div class="badge">BEST</div>
-      <h3>Pro</h3>
-      <div class="price">Rp150.000 / bulan</div>
-      <ul>
-        <li>✔ 500 AI Generations</li>
-        <li>✔ Faster Processing</li>
-        <li>✔ Priority Support</li>
-      </ul>
-      <button onclick="selectPlan('Pro - Rp150.000')">Choose Plan</button>
-    </div>
+<div class="card">
+<div class="badge">BEST</div>
+<h3>Pro</h3>
+<div class="price">Rp150.000 / bulan</div>
+<ul>
+<li>✔ 500 AI Generations</li>
+<li>✔ Faster Processing</li>
+<li>✔ Priority Support</li>
+</ul>
+<button onclick="selectPlan('Pro - Rp150.000')">Choose Plan</button>
+</div>
 
-    <div class="card">
-      <h3>Elite</h3>
-      <div class="price">Rp300.000 / bulan</div>
-      <ul>
-        <li>✔ Unlimited AI Access</li>
-        <li>✔ Ultra Fast Engine</li>
-        <li>✔ 24/7 VIP Support</li>
-      </ul>
-      <button onclick="selectPlan('Elite - Rp300.000')">Choose Plan</button>
-    </div>
+<div class="card">
+<h3>Elite</h3>
+<div class="price">Rp300.000 / bulan</div>
+<ul>
+<li>✔ Unlimited AI Access</li>
+<li>✔ Ultra Fast Engine</li>
+<li>✔ 24/7 VIP Support</li>
+</ul>
+<button onclick="selectPlan('Elite - Rp300.000')">Choose Plan</button>
+</div>
 
-  </div>
+</div>
 </section>
 
 <section class="pricing">
@@ -169,92 +290,153 @@ font-weight:600;
 <div class="footer">© 2026 SF TOOL AI</div>
 
 <!-- LOGIN MODAL -->
-<div class="login-modal" id="loginModal" onclick="outsideClick(event)">
-  <div class="login-box">
-    <span class="close-btn" onclick="closeLogin()">×</span>
-    <h2>Welcome Back 👋</h2>
+<div class="login-modal" id="loginModal">
+<div class="login-box">
+<span class="close-btn" onclick="closeLogin()">×</span>
+<h2>Welcome Back 👋</h2>
 
-    <input type="email" placeholder="Email Address" required>
+<input type="email" placeholder="Email Address">
 
-    <div class="password-wrapper">
-      <input type="password" id="password" placeholder="Password" required>
-    </div>
+<input type="password" placeholder="Password">
 
-    <button class="login-btn">Login</button>
+<button class="login-btn">Login</button>
 
-    <div class="extra-links">
-      <p><a href="#">Forgot Password?</a></p>
-      <p>
-  Belum punya akun? 
-  <a href="https://wa.me/6285888053302?text=Halo%20Admin,%20saya%20ingin%20mendaftar%20akun%20membership.%20Mohon%20informasi%20lebih%20lanjut.%20Terima%20kasih."
-     target="_blank">
-     Daftar
-  </a>
+<p style="margin-top:10px;">
+Belum punya akun? 
+<a href="https://wa.me/6285888053302" target="_blank">Daftar</a>
 </p>
-    </div>
-  </div>
+
+</div>
 </div>
 
 <!-- PAYMENT MODAL -->
 <div class="login-modal" id="paymentModal">
 <div class="login-box">
 <span class="close-btn" onclick="closePayment()">×</span>
+
 <h2>Metode Pembayaran</h2>
+
 <p style="text-align:left;margin-top:15px;">
 <strong>BCA:</strong><br>8410575770<br>A/n M.SYAEFUDIN<br><br>
 <strong>DANA:</strong><br>085888053302<br>A/n M.SYAEFUDIN
 </p>
 
-<div style="margin-top:10px;text-align:left;">
-Status: <span id="statusText" style="color:orange;font-weight:600;">Pending</span>
-</div>
+Status: <span id="statusText" style="color:orange;">Pending</span>
 
-<input type="file" id="buktiTransfer" accept="image/*">
+<input type="file" id="buktiTransfer">
+
 <button class="login-btn" onclick="confirmPayment()">Konfirmasi Pembayaran</button>
 </div>
 </div>
 
+<!-- MAINTENANCE OVERLAY -->
+<div class="maintenance-overlay" id="maintenance">
+
+<div class="maintenance-title">SF TOOL AI</div>
+
+<div class="maintenance-loader"></div>
+
+<div class="maintenance-text">
+Server sedang <b>Maintenance</b>.<br>
+Kami sedang meningkatkan performa AI system.<br>
+Silakan tunggu beberapa saat.
+</div>
+
+<div class="reconnect-text">
+🔄 Auto reconnect server...
+</div>
+
+</div>
+
 <script>
-let selectedPlan="";
-function openLogin(){document.getElementById("loginModal").classList.add("active");}
-function closeLogin(){document.getElementById("loginModal").classList.remove("active");}
-function closePayment(){document.getElementById("paymentModal").classList.remove("active");}
-function selectPlan(plan){selectedPlan=plan;document.getElementById("paymentModal").classList.add("active");}
+
+let maintenanceMode = true
+
+if(!maintenanceMode){
+document.getElementById("maintenance").style.display="none"
+}
+
+let selectedPlan=""
+
+function openLogin(){
+document.getElementById("loginModal").classList.add("active")
+}
+
+function closeLogin(){
+document.getElementById("loginModal").classList.remove("active")
+}
+
+function closePayment(){
+document.getElementById("paymentModal").classList.remove("active")
+}
+
+function selectPlan(plan){
+selectedPlan=plan
+document.getElementById("paymentModal").classList.add("active")
+}
 
 function confirmPayment(){
-const file=document.getElementById("buktiTransfer");
-if(file.files.length===0){alert("Upload bukti transfer dulu.");return;}
-document.getElementById("statusText").innerHTML="Paid";
-document.getElementById("statusText").style.color="lime";
-generateInvoice();
-sendWhatsApp();
+
+const file=document.getElementById("buktiTransfer")
+
+if(file.files.length===0){
+alert("Upload bukti transfer dulu.")
+return
+}
+
+document.getElementById("statusText").innerHTML="Paid"
+document.getElementById("statusText").style.color="lime"
+
+generateInvoice()
+sendWhatsApp()
+
 }
 
 function generateInvoice(){
-const {jsPDF}=window.jspdf;
-const doc=new jsPDF();
-const inv="INV-"+Math.floor(Math.random()*100000);
-doc.text("INVOICE PEMBAYARAN",20,20);
-doc.text("Invoice: "+inv,20,40);
-doc.text("Plan: "+selectedPlan,20,50);
-doc.text("Status: PAID",20,60);
-doc.text("Metode: BCA / DANA",20,70);
-doc.save(inv+".pdf");
+
+const {jsPDF}=window.jspdf
+const doc=new jsPDF()
+
+const inv="INV-"+Math.floor(Math.random()*100000)
+
+doc.text("INVOICE PEMBAYARAN",20,20)
+doc.text("Invoice: "+inv,20,40)
+doc.text("Plan: "+selectedPlan,20,50)
+doc.text("Status: PAID",20,60)
+doc.text("Metode: BCA / DANA",20,70)
+
+doc.save(inv+".pdf")
+
 }
 
 function sendWhatsApp(){
-const phone="6285888053302";
-const text=`Halo Admin,%0ASaya sudah bayar.%0APlan: ${selectedPlan}%0AStatus: PAID`;
-window.open(`https://wa.me/${phone}?text=${text}`,'_blank');
+
+const phone="6285888053302"
+
+const text=`Halo Admin,%0ASaya sudah bayar.%0APlan: ${selectedPlan}%0AStatus: PAID`
+
+window.open(`https://wa.me/${phone}?text=${text}`,'_blank')
+
 }
 
-/* Counter Real Feel */
-let count=128;
+/* Counter Fake Sales */
+
+let count=128
+
 setInterval(()=>{
-let randomIncrease=Math.floor(Math.random()*3);
-count+=randomIncrease;
-document.getElementById("buyerCount").innerText=count;
-},5000);
+let randomIncrease=Math.floor(Math.random()*3)
+count+=randomIncrease
+document.getElementById("buyerCount").innerText=count
+},5000)
+
+/* Auto reconnect check */
+
+setInterval(()=>{
+fetch(window.location.href,{method:"HEAD"})
+.then(()=>{console.log("Server Online")})
+.catch(()=>{console.log("Maintenance")})
+},5000)
+
 </script>
 
 </body>
