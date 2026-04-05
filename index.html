@@ -198,8 +198,10 @@ animation:borderMove 6s linear infinite;
 <div class="description">Create stunning visuals, powerful tools, and intelligent systems with next-generation AI technology designed for innovators.</div>
 <button class="btn" onclick="openLogin()">Start Creating →</button>
 </section>
+<button class="btn" onclick="openLogin()">Start Creating →</button>
+
 <div class="online-users">
-🟢 <span id="onlineCount">247</span> pengguna sedang online & aktif
+🟢 <span id="onlineCount">65</span> pengguna sedang online & aktif
 </div>
 <section class="pricing">
   <h2>Membership Pricing</h2>
@@ -313,18 +315,22 @@ Status: <span id="statusText" style="color:orange;font-weight:600;">Pending</spa
 </div>
 
 <script>
-  let online = 247;
+let online = Math.floor(Math.random() * (80 - 50 + 1)) + 50;
 
 setInterval(()=>{
-let change = Math.floor(Math.random()*5); // naik random
-online += change;
+  let change = Math.floor(Math.random()*3); // naik dikit
+  online += change;
 
-// biar realistis (kadang turun juga)
-if(Math.random() > 0.7){
-  online -= Math.floor(Math.random()*3);
-}
+  // kadang turun
+  if(Math.random() > 0.6){
+    online -= Math.floor(Math.random()*3);
+  }
 
-document.getElementById("onlineCount").innerText = online;
+  // jaga tetap di range 50–80
+  if(online > 80) online = 80;
+  if(online < 50) online = 50;
+
+  document.getElementById("onlineCount").innerText = online;
 },3000);
 let selectedPlan="";
 function openLogin(){document.getElementById("loginModal").classList.add("active");}
