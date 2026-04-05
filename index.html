@@ -199,7 +199,7 @@ animation:borderMove 6s linear infinite;
 
 <body>
   <div class="top-online-bar">
-🟢 <span id="onlineCount">65</span> pengguna sedang online & aktif sekarang
+🟢 <span id="onlineCount">30</span> pengguna sedang online & aktif sekarang
 </div>
 <div class="rgb-grid"></div>
 
@@ -334,7 +334,7 @@ Status: <span id="statusText" style="color:orange;font-weight:600;">Pending</spa
 </div>
 
 <script>
-let online = Math.floor(Math.random() * (80 - 50 + 1)) + 50;
+let online = Math.floor(Math.random() * (55 - 30 + 1)) + 55;
 
 setInterval(()=>{
   let change = Math.floor(Math.random()*3); // naik dikit
@@ -346,8 +346,8 @@ setInterval(()=>{
   }
 
   // jaga tetap di range 50–80
-  if(online > 80) online = 80;
-  if(online < 50) online = 50;
+  if(online > 55) online = 55;
+  if(online < 30) online = 30;
 
   document.getElementById("onlineCount").innerText = online;
 },3000);
