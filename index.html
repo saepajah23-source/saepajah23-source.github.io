@@ -334,18 +334,17 @@ Status: <span id="statusText" style="color:orange;font-weight:600;">Pending</spa
 </div>
 
 <script>
-let online = Math.floor(Math.random() * (55 - 30 + 1)) + 55;
+let online = Math.floor(Math.random() * (55 - 30 + 1)) + 30;
 
 setInterval(()=>{
-  let change = Math.floor(Math.random()*3); // naik dikit
+  let change = Math.floor(Math.random()*3);
   online += change;
 
-  // kadang turun
   if(Math.random() > 0.6){
     online -= Math.floor(Math.random()*3);
   }
 
-  // jaga tetap di range 50–80
+  // batas range 30–55
   if(online > 55) online = 55;
   if(online < 30) online = 30;
 
