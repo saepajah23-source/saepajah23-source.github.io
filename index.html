@@ -8,6 +8,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
+  .online-users{
+margin-top:15px;
+font-size:14px;
+color:#22c55e;
+font-weight:500;
+letter-spacing:0.5px;
+animation:fadePulse 2s infinite;
+}
+
+@keyframes fadePulse{
+0%{opacity:0.6;}
+50%{opacity:1;}
+100%{opacity:0.6;}
+}
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{background:linear-gradient(135deg,#050816,#0a0f2c,#150d3f);color:white;overflow-x:hidden;}
 
@@ -184,7 +198,9 @@ animation:borderMove 6s linear infinite;
 <div class="description">Create stunning visuals, powerful tools, and intelligent systems with next-generation AI technology designed for innovators.</div>
 <button class="btn" onclick="openLogin()">Start Creating →</button>
 </section>
-
+<div class="online-users">
+🟢 <span id="onlineCount">247</span> pengguna sedang online & aktif
+</div>
 <section class="pricing">
   <h2>Membership Pricing</h2>
   <div class="pricing-container">
@@ -297,6 +313,19 @@ Status: <span id="statusText" style="color:orange;font-weight:600;">Pending</spa
 </div>
 
 <script>
+  let online = 247;
+
+setInterval(()=>{
+let change = Math.floor(Math.random()*5); // naik random
+online += change;
+
+// biar realistis (kadang turun juga)
+if(Math.random() > 0.7){
+  online -= Math.floor(Math.random()*3);
+}
+
+document.getElementById("onlineCount").innerText = online;
+},3000);
 let selectedPlan="";
 function openLogin(){document.getElementById("loginModal").classList.add("active");}
 function closeLogin(){document.getElementById("loginModal").classList.remove("active");}
